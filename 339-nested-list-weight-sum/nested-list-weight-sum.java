@@ -27,17 +27,18 @@
  * }
  */
 class Solution {
-    int sol = 0; 
+    private int sol = 0; 
     public int depthSum(List<NestedInteger> nestedList) {
-        dfs(nestedList, 1);
+        int depth = 1; 
+        dfs(nestedList, depth); 
         return sol; 
     }
-    public void dfs(List<NestedInteger> nl, int depth) {
+    private void dfs(List<NestedInteger> nl, int depth) {
         for (NestedInteger ni : nl) {
             if (ni.isInteger()) {
                 sol += ni.getInteger() * depth; 
             } else {
-                dfs(ni.getList(), depth + 1);
+                dfs(ni.getList(), depth + 1); 
             }
         }
     }
