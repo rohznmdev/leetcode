@@ -1,29 +1,21 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        Stack<Integer> st = new Stack<>(); 
-        Set<Integer> set = new HashSet<>(); 
+        StringBuilder result = remove(s, '(', ')'); 
+        result = remove(result.reverse(), ')', '('); 
+        return result.reverse().toString(); 
+    }
+    private StringBuilder remove(CharSequence s, char open, char close) {
+        int balance = 0; 
         StringBuilder sol = new StringBuilder(); 
         for (int i = 0; i < s.length(); i++) {
-            char currChar = s.charAt(i); 
-            if (currChar == '(') {
-                st.push(i); 
-            } else if (currChar == ')') {
-                if (!st.isEmpty()) {
-                    st.pop(); 
-                } else {
-                    set.add(i); 
-                }
+            if (s.charAt(i) == open) {
+                balance++;
+            } else if (s.charAt(i) == close) {
+                if (balance == 0) continue; 
+                balance--; 
             }
+            sol.append(s.charAt(i)); 
         }
-        // we have extra '('
-        while (!st.isEmpty()) {
-            set.add(st.pop());
-        }
-        for (int i = 0; i < s.length(); i++) {
-            if (!set.contains(i)) {
-                sol.append(s.charAt(i));
-            }
-        }
-        return sol.toString();
+        return sol; 
     }
 }
