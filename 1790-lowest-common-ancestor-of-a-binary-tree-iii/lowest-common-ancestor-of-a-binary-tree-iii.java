@@ -12,13 +12,12 @@ class Solution {
     public Node lowestCommonAncestor(Node p, Node q) {
         Set<Node> ancestors = new HashSet<>(); 
         while (p != null) {
-            ancestors.add(p); 
+            ancestors.add(p);
             p = p.parent; 
         }
         while (!ancestors.contains(q)) {
             q = q.parent; 
         }
         return q; 
-
     }
 }
