@@ -15,7 +15,9 @@
  */
 class Solution {
     public List<List<Integer>> verticalOrder(TreeNode root) {
+        // map maps column to the nodes in that column
         Map<Integer, List<Integer>> map = new TreeMap<>(); 
+        // pair<node, col> 
         Queue<Pair<TreeNode, Integer>> q = new LinkedList<>(); 
         if (root != null) q.offer(new Pair<>(root, 0)); 
         while (!q.isEmpty()) {
@@ -23,7 +25,7 @@ class Solution {
             TreeNode node = curr.getKey(); 
             int col = curr.getValue(); 
             map.putIfAbsent(col, new ArrayList<>()); 
-            map.get(col).add(node.val); 
+            map.get(col).add(node.val);
             if (node.left != null) q.offer(new Pair<>(node.left, col - 1)); 
             if (node.right != null) q.offer(new Pair<>(node.right, col + 1)); 
         }
