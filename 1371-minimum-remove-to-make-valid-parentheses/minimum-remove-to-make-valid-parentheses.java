@@ -1,6 +1,8 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
+        // first pass removes invalid closing parenthesis ')' but leaves any unmatched opening parenthesis
         StringBuilder result = remove(s, '(', ')'); 
+        // for second pass we reverse the result of the first pass allowing us to treat unmatched opening parenthesis '(' as if they were closing parenthesis. 
         result = remove(result.reverse(), ')', '('); 
         return result.reverse().toString(); 
     }
