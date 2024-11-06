@@ -14,17 +14,19 @@
  * }
  */
 class Solution {
-    private List<Integer> sol = new ArrayList<>(); 
     public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> sol = new ArrayList<>(); 
         dfs(root, sol, 0); 
         return sol; 
     }
-    private void dfs(TreeNode node, List<Integer> list, int depth) {
-        if (node == null) return; 
-        if (depth == sol.size()) {
-            sol.add(node.val); 
-        }
-        dfs(node.right, sol, depth + 1); 
-        dfs(node.left, sol, depth + 1); 
+    private void dfs(TreeNode root, List<Integer> list, int depth) {
+        if (root == null) return; 
+        // list.size() keeps track of how many levels we have encountered
+        // if depth == list.size() this is our first time encountering this depth level
+        // add root.val to the list as this is the rightmost node for that depth level. 
+        // start dfs on the right side and then go to the left 
+        if (depth == list.size()) list.add(root.val); 
+        dfs(root.right, list, depth + 1); 
+        dfs(root.left, list, depth + 1); 
     }
 }
