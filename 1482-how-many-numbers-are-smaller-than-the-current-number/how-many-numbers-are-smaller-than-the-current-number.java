@@ -1,20 +1,17 @@
 class Solution {
     public int[] smallerNumbersThanCurrent(int[] nums) {
-        int[] sol = new int[nums.length];
-        int[] prefixSum = new int[101];
-        for (int i = 0; i < nums.length; i++) {
-            prefixSum[nums[i]]++;
-            // [0, 1, 2, 1, 0, 0, 0, 0, 1]
-        } 
-        for (int i = 1; i < prefixSum.length; i++) {
-            prefixSum[i] = prefixSum[i - 1] + prefixSum[i];
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                sol[i] = 0;
-            } else {
-                sol[i] = prefixSum[nums[i] - 1];
+        Map<Integer, Integer> map = new HashMap<>(); 
+        int[] temp = new int[nums.length];
+        temp = Arrays.copyOf(nums, nums.length);
+        Arrays.sort(temp);
+        for (int i = 0; i < temp.length; i++) {
+            if (!map.containsKey(temp[i])) {
+                map.put(temp[i], i);
             }
+        }
+        int[] sol = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            sol[i] = map.get(nums[i]);
         }
         return sol;
     }
